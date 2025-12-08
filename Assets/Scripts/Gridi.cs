@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public class Gridi : MonoBehaviour
 {
+    public bool onlyDisplayPathGizmos;
+
     // Kommentoitu koodi oli pelaajatestista
     //public Transform player; 
     public LayerMask unwalkableMask;
@@ -19,6 +21,14 @@ public class Gridi : MonoBehaviour
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x/nodeDiameter);
         gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
         CreateGrid();
+    }
+
+    public int MaxSize 
+    {
+        get 
+        {
+            return gridSizeX * gridSizeY;
+        }
     }
 
     void CreateGrid() 
@@ -78,28 +88,41 @@ public class Gridi : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));
-
-        if (grid != null)
+        if (onlyDisplayPathGizmos)
         {
-            //Node playerNode = NodeFromWorldPoint(player.position);
-            foreach (Node n in grid) 
+            if (path != null)
             {
-                // If is walkable = white, if not = red
-                Gizmos.color = (n.walkable) ? Color.white : Color.red;
-                if (path != null)
+                foreach (Node n in path)
                 {
-                    if (path.Contains(n)) 
+                    Gizmos.color = Color.black;
+                    Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - 0.1f));
+                }
+            }
+        }
+        else 
+        {
+            if (grid != null)
+            {
+                //Node playerNode = NodeFromWorldPoint(player.position);
+                foreach (Node n in grid)
+                {
+                    // If is walkable = white, if not = red
+                    Gizmos.color = (n.walkable) ? Color.white : Color.red;
+                    if (path != null)
                     {
-                        Gizmos.color = Color.black;
+                        if (path.Contains(n))
+                        {
+                            Gizmos.color = Color.black;
+                        }
                     }
+                    /*
+                    if (playerNode == n) 
+                    {
+                        Gizmos.color = Color.cyan;
+                    }
+                    */
+                    Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - 0.1f));
                 }
-                /*
-                if (playerNode == n) 
-                {
-                    Gizmos.color = Color.cyan;
-                }
-                */
-                Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - 0.1f));
             }
         }
     }
