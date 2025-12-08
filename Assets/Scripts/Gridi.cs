@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Gridi : MonoBehaviour
 {
@@ -31,9 +32,33 @@ public class Gridi : MonoBehaviour
             {
                 Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius);
                 bool walkable = !(Physics.CheckSphere(worldPoint, nodeRadius, unwalkableMask));
-                grid[x, y] = new Node(walkable, worldPoint);
+                grid[x, y] = new Node(walkable, worldPoint, x, y);
             }
         }
+    }
+
+    public List<Node> GetNeighbours(Node node) 
+    { 
+        List<Node> neighours = new List<Node>();
+
+        for (int x = -1; x <= 1; x++) 
+        {
+            for (int y = -1; y <= 1; y++)
+            {
+                if (x == 0 && y == 0)
+                {
+                    continue;
+                }
+                int checkX = node.gridX + x;
+                int checkY = node.gridY + y;
+
+                if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY) 
+                {
+                    neighours.Add(grid[checkX, checkY]);
+                }
+            }
+        }
+        return neighours;
     }
 
     public Node NodeFromWorldPoint(Vector3 worldPosition) 
@@ -49,6 +74,7 @@ public class Gridi : MonoBehaviour
         return grid[x, y];
     }
 
+    public List<Node> path;
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));
@@ -60,6 +86,13 @@ public class Gridi : MonoBehaviour
             {
                 // If is walkable = white, if not = red
                 Gizmos.color = (n.walkable) ? Color.white : Color.red;
+                if (path != null)
+                {
+                    if (path.Contains(n)) 
+                    {
+                        Gizmos.color = Color.black;
+                    }
+                }
                 /*
                 if (playerNode == n) 
                 {
