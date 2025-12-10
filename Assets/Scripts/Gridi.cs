@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class Gridi : MonoBehaviour
 {
-    public bool onlyDisplayPathGizmos;
+    public bool displayGridGizmos;
 
     // Kommentoitu koodi oli pelaajatestista
     //public Transform player; 
@@ -15,7 +15,7 @@ public class Gridi : MonoBehaviour
     float nodeDiameter;
     int gridSizeX, gridSizeY;
 
-    private void Start()
+    private void Awake()
     {
         nodeDiameter = nodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x/nodeDiameter);
@@ -83,46 +83,19 @@ public class Gridi : MonoBehaviour
 
         return grid[x, y];
     }
-
-    public List<Node> path;
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));
-        if (onlyDisplayPathGizmos)
+
+
+        if (grid != null && displayGridGizmos)
         {
-            if (path != null)
+            //Node playerNode = NodeFromWorldPoint(player.position);
+            foreach (Node n in grid)
             {
-                foreach (Node n in path)
-                {
-                    Gizmos.color = Color.black;
-                    Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - 0.1f));
-                }
-            }
-        }
-        else 
-        {
-            if (grid != null)
-            {
-                //Node playerNode = NodeFromWorldPoint(player.position);
-                foreach (Node n in grid)
-                {
-                    // If is walkable = white, if not = red
-                    Gizmos.color = (n.walkable) ? Color.white : Color.red;
-                    if (path != null)
-                    {
-                        if (path.Contains(n))
-                        {
-                            Gizmos.color = Color.black;
-                        }
-                    }
-                    /*
-                    if (playerNode == n) 
-                    {
-                        Gizmos.color = Color.cyan;
-                    }
-                    */
-                    Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - 0.1f));
-                }
+                // If is walkable = white, if not = red
+                Gizmos.color = (n.walkable) ? Color.white : Color.red;
+                Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - 0.1f));
             }
         }
     }
