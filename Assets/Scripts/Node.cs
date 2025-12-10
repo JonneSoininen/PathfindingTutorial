@@ -7,6 +7,7 @@ public class Node : IHeapItem<Node>
     public Vector3 worldPosition;
     public int gridX;
     public int gridY;
+    public int movementPenalty;
 
     // gCost = distance from starting node
     public int gCost;
@@ -15,12 +16,13 @@ public class Node : IHeapItem<Node>
     public Node parent;
     int heapIndex; 
 
-    public Node(bool _walkable, Vector3 _worldPos, int _gridX, int _gridY)
+    public Node(bool _walkable, Vector3 _worldPos, int _gridX, int _gridY, int _penalty)
     {
         walkable = _walkable;
         worldPosition = _worldPos;
         gridX = _gridX;
         gridY = _gridY;
+        movementPenalty = _penalty;
     }
     // fCost = gCost + hCost
     public int fCost 
