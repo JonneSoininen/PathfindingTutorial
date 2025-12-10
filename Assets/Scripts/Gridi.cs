@@ -77,10 +77,10 @@ public class Gridi : MonoBehaviour
             }
         }
 
-        BlurPeanaltyMap(5);
+        BlurPenaltyMap(5);
     }
 
-    void BlurPeanaltyMap(int blurSize) 
+    void BlurPenaltyMap(int blurSize) 
     {
         int kernelSize = blurSize * 2 + 1;
         int kernelExtents = (kernelSize - 1) / 2;
