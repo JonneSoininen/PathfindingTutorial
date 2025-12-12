@@ -917,6 +917,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Unit
   target: {fileID: 94243287}
+  speed: 20
+  turnSpeed: 3
+  turnDst: 5
+  stoppingDst: 10
 --- !u!1 &783471485
 GameObject:
   m_ObjectHideFlags: 0
@@ -965,6 +969,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Unit
   target: {fileID: 94243287}
+  speed: 20
+  turnSpeed: 3
+  turnDst: 5
+  stoppingDst: 10
 --- !u!136 &783471488
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1252,6 +1260,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Unit
   target: {fileID: 94243287}
+  speed: 20
+  turnSpeed: 3
+  turnDst: 5
+  stoppingDst: 10
 --- !u!136 &1245847040
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1379,6 +1391,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Unit
   target: {fileID: 94243287}
+  speed: 20
+  turnSpeed: 3
+  turnDst: 5
+  stoppingDst: 10
 --- !u!136 &1380001737
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1939,6 +1955,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Unit
   target: {fileID: 94243287}
+  speed: 20
+  turnSpeed: 3
+  turnDst: 5
+  stoppingDst: 10
 --- !u!136 &1828966201
 CapsuleCollider:
   m_ObjectHideFlags: 0
